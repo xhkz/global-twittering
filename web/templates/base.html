@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.0/semantic.min.css">
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.0/semantic.min.js"></script>
+    {% block head %}{% endblock %}
+</head>
+<body>
+<nav class="ui fixed menu inverted navbar">
+    <a href="#" class="brand item">Project Name</a>
+    <a href="#" class="active item">Home</a>
+    <a href="#" class="item">item 1</a>
+    <a href="#" class="item">item 2</a>
+    <a href="#" class="item">item 3</a>
+    <a href="#" class="item">item 4</a>
+</nav>
+
+<main class="ui page grid">
+    <div class="row">
+        <div class="center aligned starter column">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+</main>
+</body>
+</html>

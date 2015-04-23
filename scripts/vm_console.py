@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import argparse
 import time
+
 from boto.ec2.connection import EC2Connection
 from boto.ec2.regioninfo import RegionInfo
 
@@ -84,8 +85,9 @@ if __name__ == '__main__':
             else:
                 print 'create %s failed.' % ins.id
     elif args.o.lower() == 'terminate':
-        # TODO
-        pass
+        # Terminating all instances
+        for ins_id in get_all_instance_ids():
+            terminate_instance(ins_id)
     else:
         parser.print_help()
 

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block head %}
+    <script type="text/javascript">
+        google.load("visualization", "1.1", {packages: ["corechart"]});
+        google.setOnLoadCallback(drawStuff);
+
+        function drawStuff() {
+            var jsonData = $.ajax({
+                url: "data",
+                dataType: "json",
+                async: false
+            }).responseText;
+            var data = new google.visualization.DataTable(jsonData);
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, {width: 400, height: 240});
+        }
+    </script>{% endblock %}
+{% block body %}
+    <div id="chart_div"></div>
+{% endblock %}
