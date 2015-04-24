@@ -1,7 +1,7 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 import argparse
 import time
-
+# boto <= 2.34.0
 from boto.ec2.connection import EC2Connection
 from boto.ec2.regioninfo import RegionInfo
 
