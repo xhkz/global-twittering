@@ -3,15 +3,14 @@ import calendar
 import json
 import re
 import time
+
 from whoosh.analysis import RegexTokenizer
 from whoosh.analysis import LowercaseFilter
 from whoosh.analysis import StopFilter
 from TwitterAPI.TwitterAPI import TwitterAPI
 
 
-
 class TwitterAPIAccess(object):
-
     def __init__(self, database_manager, publisher, configuration_list, stop_words):
         self.db = database_manager
         self.user_info = configuration_list
@@ -20,7 +19,8 @@ class TwitterAPIAccess(object):
                       LowercaseFilter() | \
                       StopFilter() | \
                       StopFilter(stop_words)
-        self.api    = TwitterAPI(self.user_info["API_KEY"], self.user_info["API_SECRET"], self.user_info["ACCESS_TOKEN"], self.user_info["ACCESS_TOKEN_SECRET"])
+        self.api = TwitterAPI(self.user_info["API_KEY"], self.user_info["API_SECRET"], self.user_info["ACCESS_TOKEN"],
+                              self.user_info["ACCESS_TOKEN_SECRET"])
 
     def start_stream(self):
         while True:
@@ -41,6 +41,7 @@ class TwitterAPIAccess(object):
             except Exception as e:
                 print('STOPPED: %s %s' % (type(e), e))
                 break
+
     def map_tweet_fields(self, json_object):
         # If coordinates is not populated, then the tweet was was not within bounds
         if json_object['coordinates'] == None:
@@ -52,26 +53,26 @@ class TwitterAPIAccess(object):
             (stripped_text, link_array) = self.strip_links(json_object['text'])
             tokens = [token.text for token in self.filter(stripped_text)]
             response['what'] = {'text': json_object['text'],
-                            'tokens': tokens,
-                            'link_array': link_array,
-                            'tag': self.user_info['tag'],
-                            'retweet_count': json_object['retweet_count'],
-                            'followers_count': json_object['user']['followers_count'],
-                            'hashtags': json_object['entities']['hashtags'],
-                            'id': json_object['id_str']}
+                                'tokens': tokens,
+                                'link_array': link_array,
+                                'tag': self.user_info['tag'],
+                                'retweet_count': json_object['retweet_count'],
+                                'followers_count': json_object['user']['followers_count'],
+                                'hashtags': json_object['entities']['hashtags'],
+                                'id': json_object['id_str']}
             lat = json_object['coordinates']['coordinates'][1]
             lon = json_object['coordinates']['coordinates'][0]
             response['where'] = {'location': [lat, lon],
-                                "latitude" : lat,
-                                "longitude" : lon}
+                                 "latitude": lat,
+                                 "longitude": lon}
             timestamp = time.strptime(json_object['created_at'],
-                                  '%a %b %d %H:%M:%S +0000 %Y')
+                                      '%a %b %d %H:%M:%S +0000 %Y')
             response['when'] = {'date': calendar.timegm(timestamp) * 1000,
-                            'shardtime': calendar.timegm(timestamp) * 1000}
+                                'shardtime': calendar.timegm(timestamp) * 1000}
             response['who'] = {'id': json_object['user']['id'],
-                           'screen_name': json_object['user']['screen_name'],
-                           'description': json_object['user']['description'],
-                           'location': json_object['user']['location']}
+                               'screen_name': json_object['user']['screen_name'],
+                               'description': json_object['user']['description'],
+                               'location': json_object['user']['location']}
             response['type'] = 'tweet'
             return response
 

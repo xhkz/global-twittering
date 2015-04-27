@@ -1,0 +1,6 @@
+pycouchdb
+tweepy
+flask
+couchdb
+TwitterAPI
+whoosh
