@@ -4,3 +4,4 @@ flask
 couchdb
 TwitterAPI
 whoosh
+boto==2.34.0
