@@ -26,6 +26,13 @@ app_auth = {
         'py2YB88r2YsP45gC7Fs3TbfVfxnG4Ef3gIn48gF5bepB0'
     ),
 
+    'xin2': Keys(
+        'pwsPSOEtWTt2m1OO5wQAby3iW',
+        'xIB4aM18OklGrtNqQjqFrugJUHUBTT274hn02TjUxAAAsI2Fa1',
+        '2803020907-m2W3Q7WeDSSMcnh2rFgChLXuTxg0oYZQdRnUFnc',
+        '7srtksL6zIIUVc29SzYYRuZIwFbU35mx0ExRSChOMvp0k'
+    ),
+
     'nikvi': Keys(
         'Gkov4WGDeIViDSct84klCJCoO',
         'xhdByIyeTSwU8byraNJg6b1RalyodjbILbhEsvSI0RRqMRUyh4',
@@ -38,6 +45,13 @@ app_auth = {
         "R4xrvBWIzU1Mqd7BU13hX4AiHmzRqNQIJUhXNXZZYH661TIX6h",
         "808402454-1JJqi9TDziPasFusqXRoiFcYnvBOAyzcuCZMkZHT",
         "lbZjgJI7S44A1HZdYE2p13PoAdHyqDAkCFbZfG0EBsTNH"
+    ),
+
+    'jacky': Keys(
+        "ijnHtRNQixWg7o5EzoSPB8VgJ",
+        "IDo3LZbqoYyXcvACpwwuseuFiCIWmV05W6EFh35HUjyHkKzJZ4",
+        "3180754530-RHk7GnQsNvUbDBEX6kvATVEFWEGbsnnWiAV6ODX",
+        "2e43UNUqa6oCZfwFMym5rftu0LpBF5ML5ceGZ9tSw5mVs"
     )
 }
 

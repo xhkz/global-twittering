@@ -11,4 +11,4 @@ python get_tweets_streamer.py xin 0 >stream.log 2>&1 &
 python get_tweets_streamer.py nikvi 1 >stream.log 2>&1 &
 python get_tweets_streamer.py nikvi 2 >stream.log 2>&1 &
 python get_tweets_streamer.py zoey 3 >stream.log 2>&1 &
-python get_tweets_streamer.py zoey 4 >stream.log 2>&1 &
+python get_tweets_streamer.py jacky 4 >stream.log 2>&1 &
