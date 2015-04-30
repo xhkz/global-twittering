@@ -17,7 +17,7 @@ class Keys():
 
 
 db_name = 'twitter'
-couchdb_uri = 'http://115.146.93.76:5984'
+couchdb_uri = 'http://115.146.95.53:5984'
 app_auth = {
     'xin': Keys(
         '04ERby2gwInEOTodxbLyGNbrZ',

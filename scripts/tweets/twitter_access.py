@@ -43,7 +43,7 @@ class TwitterAPIAccess(object):
     @staticmethod
     def map_tweet_fields(json_object):
         response = {
-            "id": json_object["id_str"],
+            "id": json_object["id"],
             "user": {
                 "name": json_object["user"]["name"],
                 "screen_name": json_object["user"]["screen_name"],
