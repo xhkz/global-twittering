@@ -1,9 +1,9 @@
+__author__ = 'nikki'
 import sys
 
-__author__ = 'nikki'
 import couchdb
 
-from settings import couchdb_uri, db_name, app_auth
+from settings import couchdb_uri, db_name
 from tweets.twitter_access import *
 
 
