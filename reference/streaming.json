@@ -1,0 +1,129 @@
+{
+  "contributors": "None",
+  "truncated": "False",
+  "text": "May 1st Rock Your College Paraphernalia #ReachHigher #CollegeSigningDay  https://t.co/7dTJUr90iB",
+  "in_reply_to_status_id": "None",
+  "id": 593680708658331648,
+  "favorite_count": 0,
+  "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+  "retweeted": "False",
+  "coordinates": "None",
+  "timestamp_ms": "1430379485655",
+  "entities": {
+    "user_mentions": [],
+    "symbols": [],
+    "trends": [],
+    "hashtags": [
+      {
+        "indices": [
+          40,
+          52
+        ],
+        "text": "ReachHigher"
+      },
+      {
+        "indices": [
+          53,
+          71
+        ],
+        "text": "CollegeSigningDay"
+      }
+    ],
+    "urls": [
+      {
+        "url": "https://t.co/7dTJUr90iB",
+        "indices": [
+          73,
+          96
+        ],
+        "expanded_url": "https://instagram.com/p/2FJdPqPZFA/",
+        "display_url": "instagram.com/p/2FJdPqPZFA/"
+      }
+    ]
+  },
+  "in_reply_to_screen_name": "None",
+  "id_str": "593680708658331648",
+  "retweet_count": 0,
+  "in_reply_to_user_id": "None",
+  "favorited": "False",
+  "user": {
+    "follow_request_sent": "None",
+    "profile_use_background_image": "True",
+    "default_profile_image": "False",
+    "id": 436436044,
+    "verified": "False",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/569729210517041152/EktwYPQt_normal.jpeg",
+    "profile_sidebar_fill_color": "2911DE",
+    "profile_text_color": "0A040A",
+    "followers_count": 613,
+    "profile_sidebar_border_color": "FFFFFF",
+    "id_str": "436436044",
+    "profile_background_color": "0F0E0F",
+    "listed_count": 1,
+    "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/840370646/7103d3408f3586b8d0192d822e5178ea.jpeg",
+    "utc_offset": -21600,
+    "statuses_count": 27805,
+    "description": "I want to TRAVEL the world to EXPLORE the inner BEAUTIES of life & what it obtains. Motivating myself to SOAR & take RISK to engage in new CHALLENGES. #Tuskegee",
+    "friends_count": 653,
+    "location": "Chicago, IL",
+    "profile_link_color": "BF0F0F",
+    "profile_image_url": "http://pbs.twimg.com/profile_images/569729210517041152/EktwYPQt_normal.jpeg",
+    "following": "None",
+    "geo_enabled": "True",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/436436044/1421256129",
+    "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/840370646/7103d3408f3586b8d0192d822e5178ea.jpeg",
+    "name": "Dezzie \u2764\u270c",
+    "lang": "en",
+    "profile_background_tile": "True",
+    "favourites_count": 3856,
+    "screen_name": "Sp0k3nFr33d0m",
+    "notifications": "None",
+    "url": "None",
+    "created_at": "Wed Dec 14 05:29:29 +0000 2011",
+    "contributors_enabled": "False",
+    "time_zone": "Mountain Time (US & Canada)",
+    "protected": "False",
+    "default_profile": "False",
+    "is_translator": "False"
+  },
+  "geo": "None",
+  "in_reply_to_user_id_str": "None",
+  "possibly_sensitive": "False",
+  "lang": "en",
+  "created_at": "Thu Apr 30 07:38:05 +0000 2015",
+  "filter_level": "low",
+  "in_reply_to_status_id_str": "None",
+  "place": {
+    "full_name": "Chicago, IL",
+    "url": "https://api.twitter.com/1.1/geo/id/1d9a5370a355ab0c.json",
+    "country": "United States",
+    "place_type": "city",
+    "bounding_box": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.940033,
+            41.644102
+          ],
+          [
+            -87.940033,
+            42.0230669
+          ],
+          [
+            -87.523993,
+            42.0230669
+          ],
+          [
+            -87.523993,
+            41.644102
+          ]
+        ]
+      ]
+    },
+    "country_code": "US",
+    "attributes": {},
+    "id": "1d9a5370a355ab0c",
+    "name": "Chicago"
+  }
+}

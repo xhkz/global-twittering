@@ -1,0 +1,131 @@
+{
+  "contributors": "None",
+  "truncated": "False",
+  "text": "@RyanLuzin4 ya being broke is neckass lol",
+  "in_reply_to_status_id": 590517307430084608,
+  "id": 590517777372467200,
+  "favorite_count": 0,
+  "source": "<a href = \"http://twitter.com/download/iphone\" rel = \"nofollow\">Twitter for iPhone</a>",
+  "retweeted": "False",
+  "coordinates": {
+    "type": "Point",
+    "coordinates": [
+      -87.64117998,
+      41.81769969
+    ]
+  },
+  "entities": {
+    "symbols": [],
+    "user_mentions": [
+      {
+        "id": 311866872,
+        "indices": [
+          0,
+          11
+        ],
+        "id_str": "311866872",
+        "screen_name": "RyanLuzin4",
+        "name": "LUZIN"
+      }
+    ],
+    "hashtags": [],
+    "urls": []
+  },
+  "in_reply_to_screen_name": "RyanLuzin4",
+  "in_reply_to_user_id": 311866872,
+  "retweet_count": 0,
+  "id_str": "590517777372467200",
+  "favorited": "False",
+  "user": {
+    "follow_request_sent": "False",
+    "profile_use_background_image": "True",
+    "profile_text_color": "333333",
+    "default_profile_image": "False",
+    "id": 255604226,
+    "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme14/bg.gif",
+    "verified": "False",
+    "profile_location": "None",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/590011442901942272/qSc_yRsf_normal.jpg",
+    "profile_sidebar_fill_color": "EFEFEF",
+    "entities": {"description": {"urls": []}},
+    "followers_count": 774,
+    "profile_sidebar_border_color": "EEEEEE",
+    "id_str": "255604226",
+    "profile_background_color": "131516",
+    "listed_count": 3,
+    "is_translation_enabled": "False",
+    "utc_offset": -18000,
+    "statuses_count": 99366,
+    "description": "IPhone changed my life! Twitter changed my life!",
+    "friends_count": 658,
+    "location": "Chicago IL",
+    "profile_link_color": "009999",
+    "profile_image_url": "http://pbs.twimg.com/profile_images/590011442901942272/qSc_yRsf_normal.jpg",
+    "following": "False",
+    "geo_enabled": "True",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/255604226/1411074643",
+    "profile_background_image_url": "http://abs.twimg.com/images/themes/theme14/bg.gif",
+    "name": "Mike Hillock",
+    "lang": "en",
+    "profile_background_tile": "True",
+    "favourites_count": 18933,
+    "screen_name": "Just_Mike_4",
+    "notifications": "False",
+    "url": "None",
+    "created_at": "Mon Feb 21 18:11:40 +0000 2011",
+    "contributors_enabled": "False",
+    "time_zone": "Central Time (US & Canada)",
+    "protected": "False",
+    "default_profile": "False",
+    "is_translator": "False"
+  },
+  "geo": {
+    "type": "Point",
+    "coordinates": [
+      41.81769969,
+      -87.64117998
+    ]
+  },
+  "in_reply_to_user_id_str": "311866872",
+  "lang": "en",
+  "created_at": "Tue Apr 21 14:09:44 +0000 2015",
+  "in_reply_to_status_id_str": "590517307430084608",
+  "place": {
+    "full_name": "Chicago,IL",
+    "url": "https://api.twitter.com/1.1/geo/id/1d9a5370a355ab0c.json",
+    "country": "United States",
+    "place_type": "city",
+    "bounding_box": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.940033,
+            41.644102
+          ],
+          [
+            -87.523993,
+            41.644102
+          ],
+          [
+            -87.523993,
+            42.0230669
+          ],
+          [
+            -87.940033,
+            42.0230669
+          ]
+        ]
+      ]
+    },
+    "contained_within": [],
+    "country_code": "US",
+    "attributes": {},
+    "id": "1d9a5370a355ab0c",
+    "name": "Chicago"
+  },
+  "metadata": {
+    "iso_language_code": "en",
+    "result_type": "recent"
+  }
+}

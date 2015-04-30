@@ -1,0 +1,30 @@
+{
+  "user": {
+    "name"
+    "screen_name"
+    "followers_count"
+    "location"
+    "description"
+    "statuses_count"
+    "friends_count"
+    "listed_count"
+  }
+  "where": {
+    "coordinates"
+  }
+  "what": {
+    "text"
+    "link_array"
+    "entities"
+    "lang"
+  }
+  "about": {
+    "retweet_count"
+    "source"
+    "favorite_count"
+  }
+  "when": {
+    "created_at_timestamp"
+    "created_at_str"
+  }
+}

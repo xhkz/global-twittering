@@ -1,39 +1,37 @@
 __author__ = 'nikki'
-import calendar
 import json
-import re
 import time
+import datetime
 
 from whoosh.analysis import RegexTokenizer
 from whoosh.analysis import LowercaseFilter
 from whoosh.analysis import StopFilter
 from TwitterAPI.TwitterAPI import TwitterAPI
 
+from settings import app_auth, locations
+
 
 class TwitterAPIAccess(object):
-    def __init__(self, database_manager, publisher, configuration_list, stop_words):
+    def __init__(self, database_manager, publisher, stop_words, user_name, zone_index):
         self.db = database_manager
-        self.user_info = configuration_list
         self.publisher = publisher
-        self.filter = RegexTokenizer() | \
-                      LowercaseFilter() | \
-                      StopFilter() | \
-                      StopFilter(stop_words)
-        self.api = TwitterAPI(self.user_info["API_KEY"], self.user_info["API_SECRET"], self.user_info["ACCESS_TOKEN"],
-                              self.user_info["ACCESS_TOKEN_SECRET"])
+        self.filter = RegexTokenizer() | LowercaseFilter() | StopFilter() | StopFilter(stop_words)
+        self.zone_index = zone_index
+        self.api = TwitterAPI(app_auth[user_name].ckey, app_auth[user_name].csec,
+                              app_auth[user_name].atoken, app_auth[user_name].asec)
 
     def start_stream(self):
         while True:
             try:
-                print 'in stream'
-                r = self.api.request('statuses/filter', {'locations': self.user_info["locations"]})
-                for tweet in r:
+                print 'in stream...'
+                response = self.api.request('statuses/filter', {'locations': locations[self.zone_index]})
+                for tweet in response:
                     filtered_tweet = self.map_tweet_fields(dict(tweet))
-                    if filtered_tweet != None:
+                    if filtered_tweet:
                         print "attempting db insert and publish for {0}".format(tweet["id_str"])
-                        if self.db != None:
+                        if self.db:
                             self.db.save_tweet(filtered_tweet)
-                        if self.publisher != None:
+                        if self.publisher:
                             self.publisher.publish(json.dumps(filtered_tweet))
             except KeyboardInterrupt:
                 print('TERMINATED BY USER')
@@ -42,45 +40,42 @@ class TwitterAPIAccess(object):
                 print('STOPPED: %s %s' % (type(e), e))
                 break
 
-    def map_tweet_fields(self, json_object):
-        # If coordinates is not populated, then the tweet was was not within bounds
-        if json_object['coordinates'] == None:
-            return None
-        else:
-            response = {}
-            response['_id'] = json_object['id_str']
-            response['shard'] = json_object['coordinates']['coordinates'][0]
-            (stripped_text, link_array) = self.strip_links(json_object['text'])
-            tokens = [token.text for token in self.filter(stripped_text)]
-            response['what'] = {'text': json_object['text'],
-                                'tokens': tokens,
-                                'link_array': link_array,
-                                'tag': self.user_info['tag'],
-                                'retweet_count': json_object['retweet_count'],
-                                'followers_count': json_object['user']['followers_count'],
-                                'hashtags': json_object['entities']['hashtags'],
-                                'id': json_object['id_str']}
-            lat = json_object['coordinates']['coordinates'][1]
-            lon = json_object['coordinates']['coordinates'][0]
-            response['where'] = {'location': [lat, lon],
-                                 "latitude": lat,
-                                 "longitude": lon}
-            timestamp = time.strptime(json_object['created_at'],
-                                      '%a %b %d %H:%M:%S +0000 %Y')
-            response['when'] = {'date': calendar.timegm(timestamp) * 1000,
-                                'shardtime': calendar.timegm(timestamp) * 1000}
-            response['who'] = {'id': json_object['user']['id'],
-                               'screen_name': json_object['user']['screen_name'],
-                               'description': json_object['user']['description'],
-                               'location': json_object['user']['location']}
-            response['type'] = 'tweet'
-            return response
+    @staticmethod
+    def map_tweet_fields(json_object):
+        response = {
+            "id": json_object["id_str"],
+            "user": {
+                "name": json_object["user"]["name"],
+                "screen_name": json_object["user"]["screen_name"],
+                "followers_count": json_object["user"]["followers_count"],
+                "location": json_object["user"]["location"],
+                "description": json_object["user"]["description"],
+                "statuses_count": json_object["user"]["statuses_count"],
+                "friends_count": json_object["user"]["friends_count"],
+                "listed_count": json_object["user"]["listed_count"]
+            },
+            "where": {
+                "coordinates": json_object["coordinates"]["coordinates"] if json_object["coordinates"] else None
+            },
+            "what": {
+                "text": json_object["text"],
+                "entities": json_object["entities"],
+                "lang": json_object["lang"]
+            },
+            "about": {
+                "retweet_count": json_object["retweet_count"],
+                "source": json_object["source"],
+                "favorite_count": json_object["favorite_count"]
+            },
+            "when": {
+                "created_at_str": json_object["created_at"],
+                "created_at_timestamp": time.mktime(
+                    datetime.datetime.strptime(json_object["created_at"], "%a %b %d %H:%M:%S +0000 %Y").timetuple())
+            }
+        }
 
-    def strip_links(self, status):
-        links = re.findall(r'(https?://\S+)', status)
-        for url in links:
-            status = status.replace(url, '')
-        return (status, links)
+        return response
+
 
 
 

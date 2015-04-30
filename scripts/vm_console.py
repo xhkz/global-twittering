@@ -6,7 +6,6 @@ import time
 from boto.ec2.connection import EC2Connection
 from boto.ec2.regioninfo import RegionInfo
 
-
 # Team 8
 # TODO change and move to config file
 EC2_ACCESS_KEY = '38aa6ac0953443f5831398a4cc8757a0'
@@ -29,7 +28,7 @@ def create_instances(count=1):
     instance_list = []
     for c in range(count):
         instance_list.append(
-            conn.run_instances('ami-000022b3',
+            conn.run_instances(DEFAULT_IMAGE_ID,
                                key_name=DEFAULT_KEY_PAIR,
                                instance_type='m1.small',
                                security_groups=['default'],

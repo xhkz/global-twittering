@@ -1,25 +1,23 @@
 #!/usr/bin/env python
 import argparse
 import time
+import datetime
 
 import pycouchdb
 import tweepy
 
+from settings import app_auth, couchdb_uri, db_name
 
-# configuration
-DB_NAME = 'twitter'
-COUCHDB_URI = 'http://localhost:5984/'
-CONSUMER_KEY = '04ERby2gwInEOTodxbLyGNbrZ'
-CONSUMER_SEC = 'poVkXJvOhnuwlc1AkaQuDWpO4N6YNZEmlB0YgS4rCRM1GHhOMQ'
-ACCESS_TOKEN = '2803020907-1d9ShXZ2tRzO1EzrP1QDyk42TpiOdubDnp7ekfa'
-ACCESS_SEC = 'py2YB88r2YsP45gC7Fs3TbfVfxnG4Ef3gIn48gF5bepB0'
 
-auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SEC)
-auth.set_access_token(ACCESS_TOKEN, ACCESS_SEC)
+auth = tweepy.OAuthHandler(app_auth['xin'].ckey, app_auth['xin'].csec)
+auth.set_access_token(app_auth['xin'].atoken, app_auth['xin'].asec)
 api = tweepy.API(auth)
-server = pycouchdb.Server(COUCHDB_URI)
+server = pycouchdb.Server(couchdb_uri)
+if db_name not in server:
+    server.create(db_name)
 
-db = server.database(DB_NAME)
+db = server.database(db_name)
+
 geo_code = '41.85,-87.650,10mi'
 tweets_count = 10
 
@@ -43,7 +41,39 @@ def init_doc():
 
 def save_data(json_data):
     for item in json_data:
-        db.save(item._json)
+        j = item._json
+        data = {
+            "id": j["id"],
+            "user": {
+                "name": j["user"]["name"],
+                "screen_name": j["user"]["screen_name"],
+                "followers_count": j["user"]["followers_count"],
+                "location": j["user"]["location"],
+                "description": j["user"]["description"],
+                "statuses_count": j["user"]["statuses_count"],
+                "friends_count": j["user"]["friends_count"],
+                "listed_count": j["user"]["listed_count"]
+            },
+            "where": {
+                "coordinates": j["coordinates"]["coordinates"] if j["coordinates"] else None
+            },
+            "what": {
+                "text": j["text"],
+                "entities": j["entities"],
+                "lang": j["lang"]
+            },
+            "about": {
+                "retweet_count": j["retweet_count"],
+                "source": j["source"],
+                "favorite_count": j["favorite_count"]
+            },
+            "when": {
+                "created_at_str": j["created_at"],
+                "created_at_timestamp": time.mktime(
+                    datetime.datetime.strptime(j["created_at"], "%a %b %d %H:%M:%S +0000 %Y").timetuple())
+            }
+        }
+        db.save(data)
 
 
 if __name__ == '__main__':
