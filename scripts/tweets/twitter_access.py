@@ -1,5 +1,4 @@
 __author__ = 'nikki'
-import json
 import time
 import datetime
 
@@ -12,9 +11,8 @@ from settings import app_auth, locations
 
 
 class TwitterAPIAccess(object):
-    def __init__(self, database_manager, publisher, stop_words, user_name, zone_index):
+    def __init__(self, database_manager, stop_words, user_name, zone_index):
         self.db = database_manager
-        self.publisher = publisher
         self.filter = RegexTokenizer() | LowercaseFilter() | StopFilter() | StopFilter(stop_words)
         self.zone_index = zone_index
         self.api = TwitterAPI(app_auth[user_name].ckey, app_auth[user_name].csec,
@@ -28,11 +26,8 @@ class TwitterAPIAccess(object):
                 for tweet in response:
                     filtered_tweet = self.map_tweet_fields(dict(tweet))
                     if filtered_tweet:
-                        print "attempting db insert and publish for {0}".format(tweet["id_str"])
-                        if self.db:
-                            self.db.save_tweet(filtered_tweet)
-                        if self.publisher:
-                            self.publisher.publish(json.dumps(filtered_tweet))
+                        # print "attempting db insert and publish for {0}".format(tweet["id_str"])
+                        self.db.save_tweet(filtered_tweet)
             except KeyboardInterrupt:
                 print('TERMINATED BY USER')
                 break

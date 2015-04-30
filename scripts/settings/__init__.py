@@ -31,6 +31,13 @@ app_auth = {
         'xhdByIyeTSwU8byraNJg6b1RalyodjbILbhEsvSI0RRqMRUyh4',
         '47649768-W9aZXo9oQcQ8WYbYNn1YcEOaUrajxJrlAVne18VB2',
         'YorFM0a2VfgE6t7VffMpBfzPBbRul01a5tafJubi382h3'
+    ),
+
+    'zoey': Keys(
+        "JuDAs23ssLkzgGv7HAzA08Rfd",
+        "R4xrvBWIzU1Mqd7BU13hX4AiHmzRqNQIJUhXNXZZYH661TIX6h",
+        "808402454-1JJqi9TDziPasFusqXRoiFcYnvBOAyzcuCZMkZHT",
+        "lbZjgJI7S44A1HZdYE2p13PoAdHyqDAkCFbZfG0EBsTNH"
     )
 }
 

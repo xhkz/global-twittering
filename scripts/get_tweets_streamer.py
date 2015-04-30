@@ -31,5 +31,5 @@ if __name__ == '__main__':
         exit(-1)
 
     database_manager = DataBaseManager()
-    app = TwitterAPIAccess(database_manager, None, None, user_name, zone_index)
+    app = TwitterAPIAccess(database_manager, None, user_name, zone_index)
     app.start_stream()

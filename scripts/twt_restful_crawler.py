@@ -19,7 +19,7 @@ if db_name not in server:
 db = server.database(db_name)
 
 geo_code = '41.85,-87.650,10mi'
-tweets_count = 10
+tweets_count = 100
 
 
 def init_data():
