@@ -1,6 +1,7 @@
-from flask import Flask, render_template, jsonify
+__author__ = 'pOOQOOr'
+from flask import render_template, jsonify
 
-app = Flask(__name__)
+from app import app
 
 
 @app.route('/')
@@ -24,7 +25,3 @@ def data():
         ]
     }
     return jsonify(response)
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
