@@ -14,16 +14,15 @@
 <body>
 <nav class="ui fixed menu inverted navbar">
     <a href="#" class="brand item">Twitter Chicago</a>
-    <a href="#" class="active item">Home</a>
-    <a href="#" class="item">item 1</a>
-    <a href="#" class="item">item 2</a>
-    <a href="#" class="item">item 3</a>
-    <a href="#" class="item">item 4</a>
+    <a href="{{ url_for('pie') }}" class="item">Pie</a>
+    <a href="{{ url_for('bar') }}" class="item">Bar</a>
+    <a href="{{ url_for('col') }}" class="item">Column</a>
+    <a href="{{ url_for('scatter') }}" class="item">Scatter</a>
 </nav>
 
 <main class="ui page grid">
     <div class="row">
-        <div class="center aligned starter column">
+        <div class="center aligned column">
             {% block body %}{% endblock %}
         </div>
     </div>
