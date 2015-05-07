@@ -32,4 +32,5 @@ def data():
             {"c": [{"v": "Pepperoni", "f": None}, {"v": 2, "f": None}]}
         ]
     }
+
     return jsonify(response)
