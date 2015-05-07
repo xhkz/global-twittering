@@ -2,7 +2,7 @@ __author__ = 'Xin Huang'
 
 from flask import render_template, jsonify
 
-from app import app
+from app import app, db
 
 
 @app.route('/')
@@ -81,3 +81,13 @@ def col_data():
 @app.route('/scatter')
 def scatter():
     return render_template('scatter.html')
+
+
+@app.route('/couch')
+def couch_data():
+    """
+    sample data for querying couchdb and return json
+    :return: json
+    """
+    data = list(db.query("zoey/test"))
+    return jsonify({'data': data})
