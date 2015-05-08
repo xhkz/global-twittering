@@ -63,15 +63,15 @@ def col_data():
     response = {
         'cols': [
             {'id': '', 'label': 'Galaxy', 'type': 'string'},
-            {'id': '', 'label': 'Distance', 'type': 'number'},
-            {'id': '', 'label': 'Brightness', 'type': 'number'}
+            {'id': '', 'label': 'ValueA', 'type': 'number'},
+            {'id': '', 'label': 'ValueB', 'type': 'number'}
         ],
         'rows': [
-            {'c': [{'v': 'Canis Major Dwarf'}, {'v': 8000}, {'v': 23.3}]},
-            {'c': [{'v': 'Sagittarius Dwarf'}, {'v': 24000}, {'v': 4.5}]},
-            {'c': [{'v': 'Ursa Major II Dwarf'}, {'v': 30000}, {'v': 14.3}]},
-            {'c': [{'v': 'Lg. Magellanic Cloud'}, {'v': 50000}, {'v': 0.9}]},
-            {'c': [{'v': 'Bootes I'}, {'v': 60000}, {'v': 13.1}]}
+            {'c': [{'v': 'Canis Major Dwarf'}, {'v': 80}, {'v': 23.3}]},
+            {'c': [{'v': 'Sagittarius Dwarf'}, {'v': 24}, {'v': 4.5}]},
+            {'c': [{'v': 'Ursa Major II Dwarf'}, {'v': 30}, {'v': 14.3}]},
+            {'c': [{'v': 'Lg. Magellanic Cloud'}, {'v': 50}, {'v': 0.9}]},
+            {'c': [{'v': 'Bootes I'}, {'v': 60}, {'v': 13.1}]}
         ]
     }
 
@@ -81,6 +81,25 @@ def col_data():
 @app.route('/scatter')
 def scatter():
     return render_template('scatter.html')
+
+
+@app.route('/scatter_data')
+def scatter_data():
+    data = {
+        'cols': [
+            {'id': '', 'label': 'Hour', 'type': 'number'},
+            {'id': '', 'label': 'Final', 'type': 'number'}
+        ],
+        'rows': [
+            {'c': [{'v': 0}, {'v': 23}]},
+            {'c': [{'v': 0}, {'v': 45}]},
+            {'c': [{'v': 0}, {'v': 76}]},
+            {'c': [{'v': 1}, {'v': 80}]},
+            {'c': [{'v': 2}, {'v': 90}]},
+            {'c': [{'v': 3}, {'v': 100}]}
+        ]
+    }
+    return jsonify(data)
 
 
 @app.route('/couch')

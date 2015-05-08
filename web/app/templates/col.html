@@ -12,15 +12,10 @@
             }).responseText;
 
             var options = {
-                series: {
-                    0: {axis: 'distance'},
-                    1: {axis: 'brightness'}
-                },
-                axes: {
-                    y: {
-                        distance: {label: 'parsecs'},
-                        brightness: {side: 'right', label: 'apparent magnitude'}
-                    }
+                height: 500,
+                chart: {
+                    title: 'Title',
+                    subtitle: 'Subtitle'
                 }
             };
 
@@ -30,5 +25,5 @@
         }
     </script>{% endblock %}
 {% block body %}
-    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+    <div id="chart_div"></div>
 {% endblock %}

@@ -11,20 +11,24 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.0/semantic.min.js"></script>
     {% block head %}{% endblock %}
 </head>
+
+{% macro nav_link(endpoint, display) %}
+    <a class="{% if request.endpoint == endpoint %}active {% endif %}item"
+       href="{{ url_for(endpoint) }}">{{ display }}</a>
+{% endmacro %}
+
 <body>
 <nav class="ui fixed menu inverted navbar">
     <a href="#" class="brand item">Twitter Chicago</a>
-    <a href="{{ url_for('pie') }}" class="item">Pie</a>
-    <a href="{{ url_for('bar') }}" class="item">Bar</a>
-    <a href="{{ url_for('col') }}" class="item">Column</a>
-    <a href="{{ url_for('scatter') }}" class="item">Scatter</a>
+    {{ nav_link('pie', 'Pie') }}
+    {{ nav_link('bar', 'Bar') }}
+    {{ nav_link('col', 'Column') }}
+    {{ nav_link('scatter', 'Scatter') }}
 </nav>
 
 <main class="ui page grid">
-    <div class="row">
-        <div class="center aligned column">
-            {% block body %}{% endblock %}
-        </div>
+    <div class="column">
+        {% block body %}{% endblock %}
     </div>
 </main>
 </body>
