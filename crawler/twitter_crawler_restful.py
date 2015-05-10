@@ -6,7 +6,7 @@ from datetime import datetime
 import pycouchdb
 import tweepy
 
-from crawler.settings import app_auth, couchdb_uri
+from settings import app_auth, couchdb_uri
 
 
 db_name = 'twitter_rest'

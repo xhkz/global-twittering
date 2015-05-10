@@ -7,7 +7,7 @@ from whoosh.analysis import LowercaseFilter
 from whoosh.analysis import StopFilter
 from TwitterAPI.TwitterAPI import TwitterAPI
 
-from crawler.settings import app_auth, locations
+from settings import app_auth, locations
 
 
 class TwitterAPIAccess(object):

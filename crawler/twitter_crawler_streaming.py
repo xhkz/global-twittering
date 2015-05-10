@@ -3,8 +3,8 @@ import sys
 
 import couchdb
 
-from settings import couchdb_uri, db_name
-from crawler.tweets.twitter_access import *
+from settings import couchdb_uri, db_name, app_auth
+from tweets.twitter_access import *
 
 
 class DataBaseManager(object):
