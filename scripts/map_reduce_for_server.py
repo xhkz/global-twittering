@@ -1,12 +1,10 @@
 __author__ = 'rongzuoliu'
 
 import couchdb
-from couchdb.mapping import ViewField
 
 
 def map_reduce(dbname, view_name, reduce_field):
-
-    server = couchdb.Server(url= "http://115.146.95.53:5984/")
+    server = couchdb.Server(url="http://115.146.95.53:5984/")
     db = server[dbname]
 
     map_fun = '''
@@ -39,9 +37,7 @@ def map_reduce(dbname, view_name, reduce_field):
     db['_design/' + view_name + 'View'] = design
 
 
-
 if __name__ == "__main__":
-
     view_name = 'Hashtags'
 
     # todo: you should change the field name to what you want to reduce

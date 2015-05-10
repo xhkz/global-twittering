@@ -4,7 +4,7 @@ import sys
 import couchdb
 
 from settings import couchdb_uri, db_name
-from tweets.twitter_access import *
+from crawler.tweets.twitter_access import *
 
 
 class DataBaseManager(object):

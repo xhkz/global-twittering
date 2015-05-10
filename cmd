@@ -7,7 +7,8 @@ cd ccc_task_2
 sudo pip install -r requirements.txt
 sudo pip install requests[security] --upgrade
 
-python web/run.py
+sudo pip install uwsgi
+sudo apt-get install nginx
 
 ----------------------
 ./twt_restful_crawler.py >rest.log 2>&1 &

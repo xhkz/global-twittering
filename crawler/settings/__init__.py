@@ -16,7 +16,7 @@ class Keys():
         self.asec = asec
 
 
-db_name = 'twitter'
+db_name = 'twitter_rest'
 couchdb_uri = 'http://115.146.95.53:5984'
 app_auth = {
     'xin': Keys(
