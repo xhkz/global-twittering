@@ -1,10 +1,11 @@
+#!/usr/bin/env python
 __author__ = 'nikki'
 import sys
 
 import couchdb
 
 from settings import couchdb_uri, db_name, app_auth
-from tweets.twitter_access import *
+from tweets.twitter_access import TwitterAPIAccess
 
 
 class DataBaseManager(object):
