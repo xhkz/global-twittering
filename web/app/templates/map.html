@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block head %}
+    <style type="text/css">
+        #map-canvas {
+            height: 100%;
+            margin-top: 35px;
+        }
+    </style>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHe4fV6BbVm1i9K35a6WwxyqEia92kDuU"></script>
+    <script type="text/javascript">
+        var map;
+        var marker;
+        function initialize() {
+            var mapOptions = {
+                center: {lat: 41.85, lng: -87.67},
+                zoom: 12
+            };
+            map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+        $.getJSON("{{ url_for('google_map_data') }}", function (data) {
+            var i = 0;
+            $.each(data['geo'], function (idx, val) {
+                console.log(val)
+                setTimeout(function () {
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(val[0], val[1]),
+                        title: "title",
+                        map: map,
+                        animation: google.maps.Animation.DROP
+                    });
+                }, 500 + ( i++ * 500 ));
+            });
+        });
+    </script>
+{% endblock %}
+{% block main %}
+    <div id="map-canvas"></div>
+{% endblock %}

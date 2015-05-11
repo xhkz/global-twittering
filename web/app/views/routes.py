@@ -102,11 +102,32 @@ def scatter_data():
     return jsonify(data)
 
 
+@app.route('/google_map')
+def google_map():
+    return render_template('map.html')
+
+
+@app.route('/google_map_data')
+def google_map_data():
+    data = {
+        'geo': [
+            [41.758425, -87.605513],
+            [41.964988, -87.700031],
+            [41.8781136, -87.6297982],
+            [41.92972694, -87.65279869],
+            [41.85216899, -87.61598398],
+            [41.91867338, -87.6996311],
+            [41.68474572, -87.66521486]
+        ]
+    }
+    return jsonify(data)
+
+
 @app.route('/couch')
 def couch_data():
     """
     sample data for querying couchdb and return json
     :return: json
     """
-    data = list(db.query("zoey/test"))
+    data = list(db.query("HashtagsView/Hashtags", group='true', limit=10))
     return jsonify({'data': data})

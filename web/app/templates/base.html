@@ -12,24 +12,26 @@
     {% block head %}{% endblock %}
 </head>
 
+<body>
 {% macro nav_link(endpoint, display) %}
     <a class="{% if request.endpoint == endpoint %}active {% endif %}item"
        href="{{ url_for(endpoint) }}">{{ display }}</a>
 {% endmacro %}
-
-<body>
 <nav class="ui fixed menu inverted navbar">
     <a href="#" class="brand item">Twitter Chicago</a>
     {{ nav_link('pie', 'Pie') }}
     {{ nav_link('bar', 'Bar') }}
     {{ nav_link('col', 'Column') }}
     {{ nav_link('scatter', 'Scatter') }}
+    {{ nav_link('google_map', 'Map') }}
 </nav>
 
-<main class="ui page grid">
-    <div class="column">
-        {% block body %}{% endblock %}
-    </div>
-</main>
+{% block main %}
+    <main class="ui page grid">
+        <div class="column">
+            {% block column %}{% endblock %}
+        </div>
+    </main>
+{% endblock %}
 </body>
 </html>
