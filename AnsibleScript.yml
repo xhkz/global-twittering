@@ -1,0 +1,49 @@
+---
+- hosts: web
+  tasks:
+   
+   - name: Install git
+     apt: pkg=git state=installed update_cache=true
+   
+   - name: Install python-setuptools
+     apt: pkg=python-setuptools state=installed update_cache=true
+
+   - name: Install python-dev
+     apt: pkg=python-dev state=installed update_cache=true
+
+   - name: Install libffi-dev
+     apt: pkg=libffi-dev state=installed update_cache=true
+
+   - name: Install libssl-dev
+     apt: pkg=libssl-dev state=installed update_cache=true
+   
+   - name: Install pip
+     easy_install: name=pip
+
+   - name: copy keys
+     copy: src=~/id_rsa dest=/home/ubuntu/.ssh/id_rsa owner=root mode=0644
+   
+   - name: set restrictive permission for the ssh private key
+     sudo: yes
+     command: chmod 600 /home/ubuntu/.ssh/id_rsa
+   
+   - name: Clone Repository
+     sudo: yes
+     git: repo=git@github.com:pOOOOOr/ccc_task_2.git dest=/home/ubuntu/ccc_task_2 clone=yes update=no accept_hostkey=yes key_file=/home/ubuntu/.ssh/id_rsa
+
+   - name: Requirements
+     pip: requirements=/home/ubuntu/ccc_task_2/requirements.txt 
+  
+   - name: Requests[security]
+     pip: name=requests[security] extra_args='--upgrade'
+
+   - name: Execute Python Commands
+     script: /home/ubuntu/cmd.sh 
+  
+ 
+       
+
+
+
+
+   
