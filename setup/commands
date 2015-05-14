@@ -10,7 +10,7 @@ sudo pip install requests[security] --upgrade
 sudo pip install uwsgi
 sudo apt-get install nginx
 
-python ccc_task_2/web/run.py
+python ccc_task_2/web/run.py >web.log 2>&1 &
 ----------------------
 ./twt_restful_crawler.py >rest.log 2>&1 &
 python get_tweets_streamer.py xin 0 >stream.log 2>&1 &
@@ -22,3 +22,6 @@ python get_tweets_streamer.py jacky 4 >stream.log 2>&1 &
 ----------------------
 sudo service couchdb stop/start
 curl http://localhost:5984/_active_tasks
+
+----------------------
+uwsgi uwsgi.ini
