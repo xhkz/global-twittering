@@ -1,7 +1,6 @@
 __author__ = 'rongzuoliu'
 
 import re
-from itertools import islice
 
 
 # todo: stop words: deal with case sensitive
@@ -15,7 +14,7 @@ class TextParser:
     @staticmethod
     # get stop word list
     def getStopWords():
-        #read the stopwords file and build a list
+        # read the stopwords file and build a list
         TextParser.stopWords = []
         TextParser.stopWords.append('AT_USER')
         TextParser.stopWords.append('HASH_TAG')
@@ -31,7 +30,7 @@ class TextParser:
 
 
     # def __init__(self):
-    #     TextParser.getStopWords() # in case
+    # TextParser.getStopWords() # in case
 
     def parsing(self, text):
         text = self.replaceTags(text)
@@ -49,11 +48,11 @@ class TextParser:
         text = re.sub('((www\.[^\s]+)|(https?://[^\s]+))', 'URL', text)
         #Convert @username to AT_USER
         self.AtUser = re.findall('@[^\s]+', text)
-        text = re.sub('@[^\s]+','AT_USER', text)
+        text = re.sub('@[^\s]+', 'AT_USER', text)
         #Replace hashtag #word with the word
         # tweet = re.sub(r'#([^\s]+)', r'\1', tweet)
         self.HashTag = re.findall(r'#[^\s]+', text)
-        text =  re.sub(r'#([^\s]+)', 'HASH_TAG', text)
+        text = re.sub(r'#([^\s]+)', 'HASH_TAG', text)
         #Remove additional white spaces
         text = re.sub('[\s]+', ' ', text)
         #trim
@@ -82,17 +81,14 @@ class TextParser:
             #check if the word stats with an alphabet
             val = re.search(r"^[a-zA-Z][a-zA-Z0-9]*$", w)
             #ignore if it is a stop word
-            if(w in TextParser.stopWords or val is None):
+            if (w in TextParser.stopWords or val is None):
                 continue
             else:
                 feature_vector.append(w.lower())
         return feature_vector
 
 
-
-
 def main():
-
     TextParser.getStopWords()
     parser = TextParser()
 

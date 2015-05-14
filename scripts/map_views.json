@@ -3,6 +3,7 @@
   "language": "javascript",
   "lists": {
     "sort": "function(head, req){var row;var rows=[];while (row = getRow()){rows.push(row)};rows.sort(function(a, b){return b.value-a.value;});send(JSON.stringify({\"rows\" : rows.slice(0, 10)}));}",
+    "sortMax": "function(head, req){var row;var rows=[];while (row = getRow()){rows.push(row)};rows.sort(function(a, b){return b.value.max - a.value.max;});send(JSON.stringify({\"rows\" : rows.slice(0, 10)}));}",
     "sortJ": "function(head, req) {var rowcount=0; var rows=[]; while(row = getRow()) { if (count <= 10) { rows.push(row); rows.sort(function(a,b) {return b.value-a.value;}); count +=1 ;} else { if (rows[9].value < row.value) { rows.splice(9,10); rows.push(row); rows.sort(function(a,b) {return b.value-a.value;})}}} send(JSON.stringify({\"rows\" : rows}));}"
   },
   "views": {
