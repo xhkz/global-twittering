@@ -10,6 +10,7 @@ sudo pip install requests[security] --upgrade
 sudo pip install uwsgi
 sudo apt-get install nginx
 
+python ccc_task_2/web/run.py
 ----------------------
 ./twt_restful_crawler.py >rest.log 2>&1 &
 python get_tweets_streamer.py xin 0 >stream.log 2>&1 &
