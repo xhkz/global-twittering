@@ -18,5 +18,10 @@
     </script>
 {% endblock %}
 {% block column %}
+    <select style="width: 100px;">
+    {% for item in items %}
+        <option value="{{ item }}">{{ item }}</option>
+    {% endfor %}
+    </select>
     <div id="chart_div"></div>
 {% endblock %}

@@ -80,7 +80,8 @@ def col_data():
 
 @app.route('/scatter')
 def scatter():
-    return render_template('scatter.html')
+    items = ["aaa", "bbb", "ccc"]
+    return render_template('scatter.html', items=items)
 
 
 @app.route('/scatter_data')
@@ -109,16 +110,12 @@ def google_map():
 
 @app.route('/google_map_data')
 def google_map_data():
+    geo_list = []
+    for d in list(db.view('mapviews/latestTweets', descending=True, limit=50)):
+        geo_list.append([d.key[0]['geo'][1], d.key[0]['geo'][0]])
+
     data = {
-        'geo': [
-            [41.758425, -87.605513],
-            [41.964988, -87.700031],
-            [41.8781136, -87.6297982],
-            [41.92972694, -87.65279869],
-            [41.85216899, -87.61598398],
-            [41.91867338, -87.6996311],
-            [41.68474572, -87.66521486]
-        ]
+        'geo': geo_list
     }
     return jsonify(data)
 
@@ -129,5 +126,8 @@ def couch_data():
     sample data for querying couchdb and return json
     :return: json
     """
-    data = list(db.query("HashtagsView/Hashtags", group='true', limit=10))
-    return jsonify({'data': data})
+    geo_list = []
+    for d in list(db.view('mapviews/latestTweets', descending=True, limit=10)):
+        geo_list.append([d.key[0]['geo'][1], d.key[0]['geo'][0]])
+
+    return jsonify({'geos': geo_list})
