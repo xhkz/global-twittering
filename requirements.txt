@@ -1,3 +1,4 @@
+textblob
 pycouchdb
 tweepy
 flask
@@ -5,4 +6,4 @@ couchdb
 TwitterAPI
 whoosh
 boto==2.34.0
-BeautifulSoup
+BeautifulSoup4
