@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block head %}
+    <script type="text/javascript">
+        google.load("visualization", "1.1", {packages: ["corechart"]});
+        google.setOnLoadCallback(drawStuff);
+
+        function drawStuff() {
+            var jsonData = $.ajax({
+                url: "{{ url_for('lang_data') }}",
+                dataType: "json",
+                async: false
+            }).responseText;
+
+            var options = {
+                height: 500,
+                title: 'Language Distribution',
+                subtitle: 'Tweets in languages like...'
+            };
+
+            var data = new google.visualization.DataTable(jsonData);
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+{% endblock %}
+{% block column %}
+    <div id="chart_div"></div>
+{% endblock %}

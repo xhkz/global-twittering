@@ -2,7 +2,7 @@ __author__ = 'Xin Huang'
 
 from flask import render_template, jsonify
 from bs4 import BeautifulSoup
-
+import twitter_languages as tl
 from app import app, db
 
 
@@ -26,6 +26,31 @@ def pie_data():
         'rows': rows
     }
 
+    return jsonify(response)
+
+###Display all langauages used as pie chart
+@app.route('/lang')
+def lang():
+    return render_template('lang.html')
+
+@app.route('/lang_data')
+def lang_data():
+    rows = []
+    for row in list(db.view('mapviews/language', group=True)):
+        if row.value >= 100:
+            lan = [element['name'] for element in tl.py_languages if element['code'] == row.key]
+            if lan:
+             rows.append({'c': [{'v': lan}, {'v': row.value}]})
+            else:
+             rows.append({'c': [{'v': row.key}, {'v': row.value}]})
+
+    response = {
+        'cols': [
+            {'id': '', 'label': 'Language', 'type': 'string'},
+            {'id': '', 'label': 'Tweets', 'type': 'number'}
+        ],
+        'rows': rows
+    }
     return jsonify(response)
 
 
