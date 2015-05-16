@@ -1,6 +1,7 @@
 __author__ = 'Xin Huang'
 
 from flask import render_template, jsonify
+from bs4 import BeautifulSoup
 
 from app import app, db
 
@@ -12,18 +13,17 @@ def pie():
 
 @app.route('/pie_data')
 def pie_data():
+    rows = []
+    for row in list(db.view('mapviews/devices', group=True)):
+        if row.value >= 100:
+            rows.append({'c': [{'v': BeautifulSoup(row.key).a.text}, {'v': row.value}]})
+
     response = {
         'cols': [
-            {'id': '', 'label': 'Topping', 'pattern': '', 'type': 'string'},
-            {'id': '', 'label': 'Slices', 'pattern': '', 'type': 'number'}
+            {'id': '', 'label': 'Device', 'type': 'string'},
+            {'id': '', 'label': 'Tweets', 'type': 'number'}
         ],
-        'rows': [
-            {'c': [{'v': 'Mushrooms', 'f': None}, {'v': 3, 'f': None}]},
-            {'c': [{'v': 'Onions', 'f': None}, {'v': 1, 'f': None}]},
-            {'c': [{'v': 'Olives', 'f': None}, {'v': 1, 'f': None}]},
-            {'c': [{'v': 'Zucchini', 'f': None}, {'v': 1, 'f': None}]},
-            {'c': [{'v': 'Pepperoni', 'f': None}, {'v': 2, 'f': None}]}
-        ]
+        'rows': rows
     }
 
     return jsonify(response)
@@ -36,18 +36,16 @@ def bar():
 
 @app.route('/bar_data')
 def bar_data():
+    rows = []
+    for r in list(db.list('mapviews/sortMax', 'mapviews/followers', group=True))[1]['rows']:
+        rows.append({'c': [{'v': r['key']}, {'v': r['value']['max']}]})
+
     response = {
         'cols': [
-            {'id': '', 'label': 'Galaxy', 'type': 'string'},
-            {'id': '', 'label': 'Distance', 'type': 'number'}
+            {'id': '', 'label': 'Name', 'type': 'string'},
+            {'id': '', 'label': 'Followers', 'type': 'number'}
         ],
-        'rows': [
-            {'c': [{'v': 'Canis Major Dwarf'}, {'v': 8000}]},
-            {'c': [{'v': 'Sagittarius Dwarf'}, {'v': 24000}]},
-            {'c': [{'v': 'Ursa Major II Dwarf'}, {'v': 30000}]},
-            {'c': [{'v': 'Lg. Magellanic Cloud'}, {'v': 50000}]},
-            {'c': [{'v': 'Bootes I'}, {'v': 60000}]},
-        ]
+        'rows': rows
     }
 
     return jsonify(response)
@@ -60,19 +58,16 @@ def col():
 
 @app.route('/col_data')
 def col_data():
+    rows = []
+    for r in list(db.list('mapviews/sort', 'mapviews/topics', group=True))[1]['rows']:
+        rows.append({'c': [{'v': r['key']}, {'v': r['value']}]})
+
     response = {
         'cols': [
-            {'id': '', 'label': 'Galaxy', 'type': 'string'},
-            {'id': '', 'label': 'ValueA', 'type': 'number'},
-            {'id': '', 'label': 'ValueB', 'type': 'number'}
+            {'id': '', 'label': 'Topic', 'type': 'string'},
+            {'id': '', 'label': 'Tweets', 'type': 'number'}
         ],
-        'rows': [
-            {'c': [{'v': 'Canis Major Dwarf'}, {'v': 80}, {'v': 23.3}]},
-            {'c': [{'v': 'Sagittarius Dwarf'}, {'v': 24}, {'v': 4.5}]},
-            {'c': [{'v': 'Ursa Major II Dwarf'}, {'v': 30}, {'v': 14.3}]},
-            {'c': [{'v': 'Lg. Magellanic Cloud'}, {'v': 50}, {'v': 0.9}]},
-            {'c': [{'v': 'Bootes I'}, {'v': 60}, {'v': 13.1}]}
-        ]
+        'rows': rows
     }
 
     return jsonify(response)
@@ -80,25 +75,27 @@ def col_data():
 
 @app.route('/scatter')
 def scatter():
-    items = ["aaa", "bbb", "ccc"]
-    return render_template('scatter.html', items=items)
+    return render_template('scatter.html')
 
 
 @app.route('/scatter_data')
 def scatter_data():
+    senti_dict = {}
+    for row in list(db.view('mapviews/c2e2')):
+        score = row.value['sentiScore']
+        if score in senti_dict:
+            senti_dict[score] += 1
+        else:
+            senti_dict[score] = 1
+
+    senti_dict.pop(0)
+
     data = {
         'cols': [
-            {'id': '', 'label': 'Hour', 'type': 'number'},
-            {'id': '', 'label': 'Final', 'type': 'number'}
+            {'id': '', 'label': 'Score', 'type': 'number'},
+            {'id': '', 'label': 'Count', 'type': 'number'}
         ],
-        'rows': [
-            {'c': [{'v': 0}, {'v': 23}]},
-            {'c': [{'v': 0}, {'v': 45}]},
-            {'c': [{'v': 0}, {'v': 76}]},
-            {'c': [{'v': 1}, {'v': 80}]},
-            {'c': [{'v': 2}, {'v': 90}]},
-            {'c': [{'v': 3}, {'v': 100}]}
-        ]
+        'rows': [{'c': [{'v': key}, {'v': val}]} for (key, val) in senti_dict.iteritems()]
     }
     return jsonify(data)
 
@@ -111,8 +108,8 @@ def google_map():
 @app.route('/google_map_data')
 def google_map_data():
     geo_list = []
-    for d in list(db.view('mapviews/latestTweets', descending=True, limit=50)):
-        geo_list.append([d.key[0]['geo'][1], d.key[0]['geo'][0]])
+    for row in list(db.view('mapviews/latestTweets', descending=True, limit=200)):
+        geo_list.append([row.value['geo'][1], row.value['geo'][0], row.value['text']])
 
     data = {
         'geo': geo_list
@@ -126,8 +123,6 @@ def couch_data():
     sample data for querying couchdb and return json
     :return: json
     """
-    geo_list = []
-    for d in list(db.view('mapviews/latestTweets', descending=True, limit=10)):
-        geo_list.append([d.key[0]['geo'][1], d.key[0]['geo'][0]])
+    data = list(db.list('mapviews/sortMax', 'mapviews/followers', group=True))[1]
 
-    return jsonify({'geos': geo_list})
+    return jsonify(data)

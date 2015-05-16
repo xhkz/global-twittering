@@ -11,9 +11,15 @@
                 async: false
             }).responseText;
 
+            var options = {
+                height: 500,
+                title: 'Device Distribution',
+                subtitle: 'Sending tweets from ...'
+            };
+
             var data = new google.visualization.DataTable(jsonData);
             var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-            chart.draw(data, {height: 500});
+            chart.draw(data, options);
         }
     </script>
 {% endblock %}

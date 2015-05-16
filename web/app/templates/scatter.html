@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block head %}
     <script type="text/javascript">
-        google.load("visualization", "1.1", {packages: ["corechart"]});
+        google.load("visualization", "1.1", {packages: ["scatter"]});
         google.setOnLoadCallback(drawStuff);
 
         function drawStuff() {
@@ -11,17 +11,21 @@
                 async: false
             }).responseText;
 
+            var options = {
+                title: 'Sentiment Analysis',
+                subtitle: 'C2E2',
+                height: 500,
+                hAxis: {title: 'Score', minValue: -1, maxValue: 1},
+                vAxis: {title: 'Count'},
+                legend: 'none'
+            };
+
             var data = new google.visualization.DataTable(jsonData);
-            var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
-            chart.draw(data, {height: 500});
+            var chart = new google.charts.Scatter(document.getElementById('chart_div'));
+            chart.draw(data, google.charts.Scatter.convertOptions(options));
         }
     </script>
 {% endblock %}
 {% block column %}
-    <select style="width: 100px;">
-    {% for item in items %}
-        <option value="{{ item }}">{{ item }}</option>
-    {% endfor %}
-    </select>
     <div id="chart_div"></div>
 {% endblock %}

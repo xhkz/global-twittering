@@ -7,6 +7,10 @@
     "sortJ": "function(head, req) {var rowcount=0; var rows=[]; while(row = getRow()) { if (count <= 10) { rows.push(row); rows.sort(function(a,b) {return b.value-a.value;}); count +=1 ;} else { if (rows[9].value < row.value) { rows.splice(9,10); rows.push(row); rows.sort(function(a,b) {return b.value-a.value;})}}} send(JSON.stringify({\"rows\" : rows}));}"
   },
   "views": {
+    "devices": {
+      "map": "function(doc) { if (doc.about.source) {emit(doc.about.source, 1); }}",
+      "reduce": "_sum"
+    },
     "topics": {
       "map": "function(doc) { if (doc.what.entities.hashtags) { for(i in doc.what.entities.hashtags) { emit(doc.what.entities.hashtags[i].text, 1); }}}",
       "reduce": "_sum"
@@ -16,7 +20,10 @@
       "reduce": "_stats"
     },
     "latestTweets": {
-      "map": "function(doc) { if (doc.where.coordinates) { emit([{time:doc.when.created_at_timestamp, geo:doc.where.coordinates}], null); } }"
+      "map": "function(doc) { if (doc.where.coordinates) { emit(doc.when.created_at_timestamp, {geo:doc.where.coordinates, text:doc.what.text}); } }"
+    },
+    "c2e2": {
+      "map": "function(doc) { if (doc.what.text.search('C2E2') != -1) { emit(doc.id, doc.sentiment); } }"
     }
   }
 }
