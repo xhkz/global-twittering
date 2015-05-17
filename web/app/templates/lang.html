@@ -5,8 +5,8 @@
         google.setOnLoadCallback(drawStuff);
 
         function drawStuff() {
-            var jsonData = $.ajax({
-                url: "{{ url_for('lang_data') }}",
+            var json1 = $.ajax({
+                url: "/lang_data",
                 dataType: "json",
                 async: false
             }).responseText;
@@ -17,12 +17,23 @@
                 subtitle: 'Tweets in languages like...'
             };
 
-            var data = new google.visualization.DataTable(jsonData);
-            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-            chart.draw(data, options);
+            var data1 = new google.visualization.DataTable(json1);
+            var chart1 = new google.visualization.PieChart(document.getElementById('chart_div1'));
+            chart1.draw(data1, options);
+
+            var json2 = $.ajax({
+                url: "/lang_data/m",
+                dataType: "json",
+                async: false
+            }).responseText;
+
+            var data2 = new google.visualization.DataTable(json2);
+            var chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));
+            chart2.draw(data2, options);
         }
     </script>
 {% endblock %}
 {% block column %}
-    <div id="chart_div"></div>
+    <div id="chart_div1"></div>
+    <div id="chart_div2"></div>
 {% endblock %}
