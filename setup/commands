@@ -12,6 +12,7 @@ sudo pip install uwsgi
 sudo apt-get install nginx
 
 # crawler
+cd ccc_task_2/crawler/
 ./twitter_crawler_restful.py >/tmp/rest.log 2>&1 &
 ./twitter_crawler_streaming.py xin 0 >/tmp/stream.log 2>&1 &
 ./twitter_crawler_streaming.py xin2 1 >/tmp/stream.log 2>&1 &
@@ -28,6 +29,21 @@ uwsgi uwsgi.ini
 sudo nginx -s reload
 
 # install log.io
-sudo apt-get install npm
-sudo apt-get install nodejs-legacy
+sudo apt-get install -y npm nodejs-legacy
 sudo npm install -g log.io --user "ubuntu"
+
+log.io-server > /tmp/logio-server.log &
+log.io-harvester > /tmp/logio-harvester.log &
+
+exports.config = {
+  nodeName: "hv1",
+  logStreams: {
+    rest: [
+      "/home/ubuntu/ccc_task_2/crawler/rest.log"
+    ]
+  },
+  server: {
+    host: '115.146.95.53',
+    port: 28777
+  }
+}

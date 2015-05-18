@@ -1,6 +1,6 @@
 __author__ = 'nikki'
 import time
-import datetime
+from datetime import datetime
 
 from whoosh.analysis import RegexTokenizer
 from whoosh.analysis import LowercaseFilter
@@ -26,7 +26,7 @@ class TwitterAPIAccess(object):
                 for tweet in response:
                     filtered_tweet = self.map_tweet_fields(dict(tweet))
                     if self.dm.not_exist(filtered_tweet['_id']):
-                        print "insert {0}".format(tweet["id_str"])
+                        print "[%s] insert %s" % (datetime.now(), tweet["id_str"])
                         self.dm.save_tweet(filtered_tweet)
             except KeyboardInterrupt:
                 print('TERMINATED BY USER')
@@ -64,7 +64,7 @@ class TwitterAPIAccess(object):
             "when": {
                 "created_at_str": json_object["created_at"],
                 "created_at_timestamp": time.mktime(
-                    datetime.datetime.strptime(json_object["created_at"], "%a %b %d %H:%M:%S +0000 %Y").timetuple())
+                    datetime.strptime(json_object["created_at"], "%a %b %d %H:%M:%S +0000 %Y").timetuple())
             }
         }
 
