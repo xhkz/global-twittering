@@ -1,3 +1,4 @@
+# setup env
 sudo apt-get update
 sudo apt-get install -y git python-setuptools python-dev libffi-dev libssl-dev
 sudo easy_install -U pip
@@ -10,22 +11,23 @@ sudo pip install requests[security] --upgrade
 sudo pip install uwsgi
 sudo apt-get install nginx
 
-python ccc_task_2/web/run.py >web.log 2>&1 &
-----------------------
-./twt_restful_crawler.py >rest.log 2>&1 &
-python get_tweets_streamer.py xin 0 >stream.log 2>&1 &
-python get_tweets_streamer.py nikvi 1 >stream.log 2>&1 &
-python get_tweets_streamer.py nikvi 2 >stream.log 2>&1 &
-python get_tweets_streamer.py zoey 3 >stream.log 2>&1 &
-python get_tweets_streamer.py jacky 4 >stream.log 2>&1 &
+# crawler
+./twitter_crawler_restful.py >/tmp/rest.log 2>&1 &
+./twitter_crawler_streaming.py xin 0 >/tmp/stream.log 2>&1 &
+./twitter_crawler_streaming.py xin2 1 >/tmp/stream.log 2>&1 &
+./twitter_crawler_streaming.py nikvi 2 >/tmp/stream.log 2>&1 &
+./twitter_crawler_streaming.py zoey 3 >/tmp/stream.log 2>&1 &
+./twitter_crawler_streaming.py jacky 4 >/tmp/stream.log 2>&1 &
 
-----------------------
+# couchdb
 sudo service couchdb stop/start
 curl http://localhost:5984/_active_tasks
 
-----------------------
+# start web server
 uwsgi uwsgi.ini
+sudo nginx -s reload
 
+# install log.io
 sudo apt-get install npm
 sudo apt-get install nodejs-legacy
 sudo npm install -g log.io --user "ubuntu"
