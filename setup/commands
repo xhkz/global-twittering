@@ -12,13 +12,12 @@ sudo pip install uwsgi
 sudo apt-get install nginx
 
 # crawler
-cd ccc_task_2/crawler/
-./twitter_crawler_restful.py >/tmp/rest.log 2>&1 &
-./twitter_crawler_streaming.py xin 0 >/tmp/stream.log 2>&1 &
-./twitter_crawler_streaming.py xin2 1 >/tmp/stream.log 2>&1 &
-./twitter_crawler_streaming.py nikvi 2 >/tmp/stream.log 2>&1 &
-./twitter_crawler_streaming.py zoey 3 >/tmp/stream.log 2>&1 &
-./twitter_crawler_streaming.py jacky 4 >/tmp/stream.log 2>&1 &
+stdbuf -oL python ccc_task_2/crawler/twitter_crawler_restful.py >/tmp/rest.log 2>&1 &
+stdbuf -oL python ccc_task_2/crawler/twitter_crawler_streaming.py xin 0 >/tmp/stream.log 2>&1 &
+stdbuf -oL python ccc_task_2/crawler/twitter_crawler_streaming.py xin2 1 >/tmp/stream.log 2>&1 &
+stdbuf -oL python ccc_task_2/crawler/twitter_crawler_streaming.py nikvi 2 >/tmp/stream.log 2>&1 &
+stdbuf -oL python ccc_task_2/crawler/twitter_crawler_streaming.py zoey 3 >/tmp/stream.log 2>&1 &
+stdbuf -oL python ccc_task_2/crawler/twitter_crawler_streaming.py jacky 4 >/tmp/stream.log 2>&1 &
 
 # couchdb
 sudo service couchdb stop/start
@@ -39,7 +38,7 @@ exports.config = {
   nodeName: "harvester1",
   logStreams: {
     rest: [
-      "/home/ubuntu/ccc_task_2/crawler/rest.log"
+      "/tmp/rest.log"
     ]
   },
   server: {

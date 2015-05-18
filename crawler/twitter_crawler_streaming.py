@@ -17,7 +17,10 @@ class DataBaseManager(object):
             self.db = self.server[db_name]
 
     def save_tweet(self, tw):
-        self.db.save(tw)
+        try:
+            self.db.save(tw)
+        except couchdb.HTTPError as e:
+            print 'duplicated'
 
     def not_exist(self, tid):
         return self.db.get(tid) is None
