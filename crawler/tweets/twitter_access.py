@@ -26,13 +26,14 @@ class TwitterAPIAccess(object):
                 for tweet in response:
                     filtered_tweet = self.map_tweet_fields(dict(tweet))
                     if self.dm.not_exist(filtered_tweet['_id']):
-                        print "[%s] insert %s" % (datetime.now(), tweet["id_str"])
+                        print '[%s] insert %s' % (datetime.now(), tweet["id_str"])
                         self.dm.save_tweet(filtered_tweet)
             except KeyboardInterrupt:
                 print('TERMINATED BY USER')
                 break
             except Exception as e:
-                print('STOPPED: %s %s' % (type(e), e))
+                print('Error: %s %s' % (type(e), e))
+                time.sleep(60)
 
     @staticmethod
     def map_tweet_fields(json_object):
