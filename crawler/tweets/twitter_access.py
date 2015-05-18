@@ -12,7 +12,7 @@ from settings import app_auth, locations
 
 class TwitterAPIAccess(object):
     def __init__(self, database_manager, stop_words, user_name, zone_index):
-        self.db = database_manager
+        self.dm = database_manager
         self.filter = RegexTokenizer() | LowercaseFilter() | StopFilter() | StopFilter(stop_words)
         self.zone_index = zone_index
         self.api = TwitterAPI(app_auth[user_name].ckey, app_auth[user_name].csec,
@@ -25,20 +25,19 @@ class TwitterAPIAccess(object):
                 response = self.api.request('statuses/filter', {'locations': locations[self.zone_index]})
                 for tweet in response:
                     filtered_tweet = self.map_tweet_fields(dict(tweet))
-                    if filtered_tweet:
-                        # print "attempting db insert and publish for {0}".format(tweet["id_str"])
-                        self.db.save_tweet(filtered_tweet)
+                    if self.dm.not_exist(filtered_tweet['_id']):
+                        print "insert {0}".format(tweet["id_str"])
+                        self.dm.save_tweet(filtered_tweet)
             except KeyboardInterrupt:
                 print('TERMINATED BY USER')
                 break
             except Exception as e:
                 print('STOPPED: %s %s' % (type(e), e))
-                break
 
     @staticmethod
     def map_tweet_fields(json_object):
         response = {
-            "id": json_object["id"],
+            "_id": json_object["id_str"],
             "user": {
                 "name": json_object["user"]["name"],
                 "screen_name": json_object["user"]["screen_name"],
@@ -70,7 +69,3 @@ class TwitterAPIAccess(object):
         }
 
         return response
-
-
-
-

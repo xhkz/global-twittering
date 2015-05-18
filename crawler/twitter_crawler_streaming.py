@@ -19,6 +19,9 @@ class DataBaseManager(object):
     def save_tweet(self, tw):
         self.db.save(tw)
 
+    def not_exist(self, tid):
+        return self.db.get(tid) is None
+
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
@@ -31,6 +34,5 @@ if __name__ == '__main__':
         print "user name is incorrect"
         exit(-1)
 
-    database_manager = DataBaseManager()
-    app = TwitterAPIAccess(database_manager, None, user_name, zone_index)
+    app = TwitterAPIAccess(DataBaseManager(), None, user_name, zone_index)
     app.start_stream()
