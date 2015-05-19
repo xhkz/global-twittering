@@ -3,23 +3,24 @@ __author__ = 'rongzuoliu'
 import couchdb
 from textblob.en.sentiments import NaiveBayesAnalyzer
 from textblob import TextBlob
-
 from TextParser import *
 
 
 def main():
     dbname = 'twitter_rest'
-    viewname = 'HashtagsView/Hashtags'
+    viewname = 'C2E2View/C2E2'
 
     server = couchdb.Server(url="http://115.146.95.53:5984/")
     db = server[dbname]
 
+    TextParser.getStopWords()
+    textParser = TextParser()
     for row in db.view(viewname):
         id = row.id
         doc = db.get(id)
         text = row.value['what']['text']
-        print text
-        (sentiment, senti_score) = sentiAnalysisWithTextBlob(text, "PatternAnalyzer")
+        parsed_text = textParser.parsing(text)
+        (sentiment, senti_score) = sentiAnalysisWithTextBlob(parsed_text, "PatternAnalyzer")
         doc['sentiment'] = {"sentiment": sentiment, "sentiScore": senti_score}
         db.save(doc)
 

@@ -2,12 +2,9 @@ __author__ = 'rongzuoliu'
 
 import re
 
-
-# todo: stop words: deal with case sensitive
 class TextParser:
     stopWordsFile = 'stop_words.txt'
     stopWords = []
-
     AtUser = []
     HashTag = []
 
@@ -62,7 +59,6 @@ class TextParser:
         feature_vector = []
         # split tweet into words
         words = text.split()
-
         for w in words:
             # replace two or more with two occurrences
             w = self.deleteRepeatCharacters(w)
@@ -78,18 +74,6 @@ class TextParser:
         return feature_vector
 
 
-def main():
-    TextParser.getStopWords()
-    parser = TextParser()
-
-    test = '76846493;;;;;;;;538067387723948000;;;;;;;;The reckless promises of @DanielAndrewsMP will be covered by cuts to "existing programmes". Which ones Dan? #VicVote http://t.co/kpwdBzNK7D;;;;;;;;Nov 28, 2014 7:30:36 AM;;;;;;;;Prahran, Melbourne.'
-
-    print parser.parsing(test)
-    print parser.AtUser
-    print parser.HashTag
-
-
 if __name__ == '__main__':
-    # main()
     print 'error!!!'
     print 'The \'TextParser.py\' is a class, which shouldn\'t be called alone!'
