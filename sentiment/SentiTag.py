@@ -1,53 +1,38 @@
-__author__ = 'rongzuoliu'
+"""
+Author: Team 8
+City: Chicago
+Subject: COMP90024
+"""
 
 import couchdb
-from textblob.en.sentiments import NaiveBayesAnalyzer
 from textblob import TextBlob
+
 from TextParser import *
 
 
-def main():
-    dbname = 'twitter_rest'
-    viewname = 'C2E2View/C2E2'
-
-    server = couchdb.Server(url="http://115.146.95.53:5984/")
-    db = server[dbname]
-
-    TextParser.getStopWords()
-    textParser = TextParser()
-    for row in db.view(viewname):
-        id = row.id
-        doc = db.get(id)
-        text = row.value['what']['text']
-        parsed_text = textParser.parsing(text)
-        (sentiment, senti_score) = sentiAnalysisWithTextBlob(parsed_text, "PatternAnalyzer")
-        doc['sentiment'] = {"sentiment": sentiment, "sentiScore": senti_score}
-        db.save(doc)
-
-
-def sentiAnalysisWithTextBlob(string, classifier):
+def analyze(string):
     sentiment = ''
-    senti_score = -100
-    if classifier == "NaiveBayesAnalyzer":
-        blob = TextBlob(string, analyzer=NaiveBayesAnalyzer())
-        senti_score = blob.sentiment.p_pos
-        if senti_score == 0.5:
-            sentiment = 'neu'
-        else:
-            sentiment = blob.sentiment.classification
+    blob = TextBlob(string)
+    polarity = blob.sentiment.polarity
+    if polarity > 0:
+        sentiment = 'pos'
+    elif polarity == 0:
+        sentiment = 'neu'
+    elif polarity < 0:
+        sentiment = 'neg'
 
-    elif classifier == "PatternAnalyzer":
-        blob = TextBlob(string)
-        senti_score = blob.sentiment.polarity
-        if blob.sentiment.polarity > 0:
-            sentiment = 'pos'
-        elif blob.sentiment.polarity == 0:
-            sentiment = 'neu'
-        elif blob.sentiment.polarity < 0:
-            sentiment = 'neg'
-
-    return sentiment, senti_score
+    return sentiment, polarity
 
 
 if __name__ == '__main__':
-    main()
+
+    server = couchdb.Server('http://115.146.95.53:5984')
+    db = server['twitter_rest']
+
+    TextParser.getStopWords()
+    textParser = TextParser()
+    for row in db.view('C2E2View/C2E2'):
+        doc = db.get(row.id)
+        (tag, score) = analyze(textParser.parsing(row.value['what']['text']))
+        doc['sentiment'] = {'sentiment': tag, 'sentiScore': score}
+        db.save(doc)

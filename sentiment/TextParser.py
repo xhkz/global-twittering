@@ -1,12 +1,20 @@
-__author__ = 'rongzuoliu'
+"""
+Author: Team 8
+City: Chicago
+Subject: COMP90024
+"""
 
 import re
+
 
 class TextParser:
     stopWordsFile = 'stop_words.txt'
     stopWords = []
     AtUser = []
     HashTag = []
+
+    def __init__(self):
+        pass
 
     @staticmethod
     def getStopWords():
@@ -72,8 +80,3 @@ class TextParser:
             else:
                 feature_vector.append(w.lower())
         return feature_vector
-
-
-if __name__ == '__main__':
-    print 'error!!!'
-    print 'The \'TextParser.py\' is a class, which shouldn\'t be called alone!'
