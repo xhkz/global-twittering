@@ -27,6 +27,7 @@
                 async: false
             }).responseText;
 
+            options.title = 'Language Distribution (exclude English)';
             var data2 = new google.visualization.DataTable(json2);
             var chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));
             chart2.draw(data2, options);

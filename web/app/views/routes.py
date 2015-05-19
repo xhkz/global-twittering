@@ -1,10 +1,12 @@
 __author__ = 'Xin Huang'
 
+from collections import Counter
+
 from flask import render_template, jsonify
+
 from bs4 import BeautifulSoup
 
 from twitter_languages import lang_codes
-
 from app import app, db
 
 
@@ -109,22 +111,20 @@ def scatter():
 
 @app.route('/scatter_data')
 def scatter_data():
-    senti_dict = {}
+    counter = Counter()
     for row in list(db.view('mapviews/c2e2')):
-        score = row.value['sentiScore']
-        if score in senti_dict:
-            senti_dict[score] += 1
-        else:
-            senti_dict[score] = 1
+        if row.value:
+            counter[row.value['sentiScore']] += 1
 
-    senti_dict.pop(0)
+    # exclude neu(0)
+    counter.pop(0)
 
     data = {
         'cols': [
             {'id': '', 'label': 'Score', 'type': 'number'},
             {'id': '', 'label': 'Count', 'type': 'number'}
         ],
-        'rows': [{'c': [{'v': key}, {'v': val}]} for (key, val) in senti_dict.iteritems()]
+        'rows': [{'c': [{'v': key}, {'v': val}]} for (key, val) in counter.iteritems()]
     }
     return jsonify(data)
 
