@@ -5,7 +5,8 @@ from collections import Counter
 from flask import render_template, jsonify
 
 from bs4 import BeautifulSoup
-
+from datetime import datetime
+import calendar
 from twitter_languages import lang_codes
 from app import app, db
 
@@ -145,6 +146,50 @@ def google_map_data():
     }
     return jsonify(data)
 
+###
+###
+def get_list(dict_data):
+    dt_list =[]
+    for key, value in dict_data.iteritems():
+        temp = [key,value]
+        dt_list.append(temp)
+    return dt_list
+
+@app.route('/time_line')
+def time_line():
+    return render_template('stackedbar.html')
+
+
+@app.route('/time_line_data')
+def time_line_data():
+    tl_dict = {}
+    pos_dict = {}
+    neg_dict = {}
+    neu_dict = {}
+    for row in list(db.view('chicago/chicagoBulls')):
+        sentiment = row.value['senti']
+        time_stamp = calendar.timegm((datetime.fromtimestamp(row.key)).replace(hour=0, minute=0, second=0, microsecond=0).timetuple()) * 1000
+        if sentiment=='pos':
+            if time_stamp in pos_dict:
+                pos_dict[time_stamp] += 1
+            else:
+                pos_dict[time_stamp]  = 1
+        elif sentiment=='neg':
+            if time_stamp in neg_dict:
+                neg_dict[time_stamp] += 1
+            else:
+                neg_dict[time_stamp] = 1
+        else:
+            if time_stamp in neu_dict:
+                neu_dict[time_stamp] += 1
+            else:
+                neu_dict[time_stamp] = 1
+
+    tl_dict["positive"] = get_list(pos_dict)
+    tl_dict["negative"] = get_list(neg_dict)
+    tl_dict["neutral"]  = get_list(neu_dict)
+
+    return jsonify(tl_dict)
 
 @app.route('/couch')
 def couch_data():
