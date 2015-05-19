@@ -1,87 +1,84 @@
 {% extends 'base.html' %}
 {% block head %}
-		<style type="text/css">
-${demo.css}
-		</style>
-		<script type="text/javascript">
-              var jsonData = $.ajax({
-                url: "{{ url_for('time_line_data') }}",
-                dataType: "json",
-                async: false
-            }).responseText;
-              var data = JSON.parse(jsonData);
-    $(function () {
-        Highcharts.setOptions({
-	            global: {
-		            useUTC: true
-	            }
+    <script type="text/javascript">
+        var jsonData = $.ajax({
+            url: "{{ url_for('time_line_data') }}",
+            dataType: "json",
+            async: false
+        }).responseText;
+        var data = JSON.parse(jsonData);
+        $(function () {
+            Highcharts.setOptions({
+                global: {
+                    useUTC: true
+                }
             });
 
-        $('#container').highcharts({
-        chart: {
-            type: 'column'
+            $('#container').highcharts({
+                chart: {
+                    type: 'column'
 
-        },
-        title: {
-            text: 'Change in sentiment for Chicago Bulls'
-        },
-        xAxis: {
-           type: 'datetime',
-           dateTimeLabelFormats: { // don't display the dummy year
-                day: '%e. %b',
-                month: '%e. %b',
-                year: '%b'
-            },
-            title: {
-                text: 'Date'
-            }
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Total number of tweets'
-            },
-        },
-        legend: {
-            align: 'right',
-            x: -30,
-            verticalAlign: 'top',
-            y: 25,
-            floating: true,
-            backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
-            borderColor: '#CCC',
-            borderWidth: 1,
-            shadow: false
-        },
-        tooltip: {
-            headerFormat: '<b>{series.name}</b><br>',
-            pointFormat: '{point.x:%eth %b}: {point.y: f} tweets'
-        },
-        plotOptions: {
-            spline: {
-                marker: {
-                    enabled: true
-                }
-            }
-        },
-        series: [{
-            name: 'Positive',
-            data:  data["positive"]
-        }, {
-            name: 'Negative',
-            data: data["negative"]
-        }, {
-            name: 'Neutral',
-            data: data["neutral"]
-        }]
-    });
-});
-		</script>
+                },
+                title: {
+                    text: 'Change in sentiment for Chicago Bulls'
+                },
+                xAxis: {
+                    type: 'datetime',
+                    dateTimeLabelFormats: { // don't display the dummy year
+                        day: '%e. %b',
+                        month: '%e. %b',
+                        year: '%b'
+                    },
+                    title: {
+                        text: 'Date'
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Total number of tweets'
+                    },
+                },
+                legend: {
+                    align: 'right',
+                    x: -30,
+                    verticalAlign: 'top',
+                    y: 25,
+                    floating: true,
+                    backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                    borderColor: '#CCC',
+                    borderWidth: 1,
+                    shadow: false
+                },
+                tooltip: {
+                    headerFormat: '<b>{series.name}</b><br>',
+                    pointFormat: '{point.x:%eth %b}: {point.y: f} tweets'
+                },
+                plotOptions: {
+                    spline: {
+                        marker: {
+                            enabled: true
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Positive',
+                    data: data["positive"]
+                }, {
+                    name: 'Negative',
+                    data: data["negative"]
+                }, {
+                    name: 'Neutral',
+                    data: data["neutral"]
+                }]
+            });
+        });
+    </script>
 {% endblock %}
 
 {% block column %}
-<script src="../static/js/highcharts.js"></script>
-<script src="../static/js/exporting.js"></script>
+    <script src="../static/js/highcharts.js"></script>
+    <script src="../static/js/exporting.js"></script>
 
-<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 {% endblock %}
