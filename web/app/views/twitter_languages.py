@@ -30,6 +30,8 @@ lang_codes = {
     "fa": {"name": "Persian", "status": "production"},
     "he": {"name": "Hebrew", "status": "production"},
     "th": {"name": "Thai", "status": "production"},
+    "et": {"name": "Estonian", "status": "production"},
+    "lt": {"name": "Lithuanian", "status": "production"},
     "uk": {"name": "Ukrainian", "status": "production"},
     "cs": {"name": "Czech", "status": "production"},
     "ro": {"name": "Romanian", "status": "production"},
