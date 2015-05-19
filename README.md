@@ -1,13 +1,15 @@
-# ccc_task_2
-comp90024
+# Global Twittering
+COMP90024 Chicago
 
-pip install -r requirements.txt
+Please refer setup/commands for setting up environment.
 
-### charts to show
-create some views for generating data for charts
-
-- locate real-time tweets on map | Google map
-- language distribution | Pie chart
-- views showing count of topics | Bar chart
-- sentimental analysis based on topics | Scatter Chart
-- tweets count by time for specific topic | Bar chart
+ccc_task_2
+├── README.md
+├── crawler             restful and streaming api crawler
+├── reference           json document
+├── report              assignment report
+├── requirements.txt    python dependencies
+├── scripts             map-reduce views
+├── sentiment           sentiment analysis tools
+├── setup               ansible and boto tool scripts
+└── web                 data visualization
