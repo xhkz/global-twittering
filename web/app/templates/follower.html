@@ -6,7 +6,7 @@
 
         function drawStuff() {
             var jsonData = $.ajax({
-                url: "{{ url_for('bar_data') }}",
+                url: "{{ url_for('follower_data') }}",
                 dataType: "json",
                 async: false
             }).responseText;

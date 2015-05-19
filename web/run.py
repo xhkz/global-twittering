@@ -1,4 +1,8 @@
-__author__ = 'Xin Huang'
+"""
+Author: Team 8
+City: Chicago
+Subject: COMP90024
+"""
 
 from app import app
 
