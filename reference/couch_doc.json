@@ -1,0 +1,97 @@
+{
+   "about": {
+       "source": "<a href=\"http://twitter.com\" rel=\"nofollow\">Twitter Web Client</a>",
+       "retweet_count": 4,
+       "favorite_count": 0
+   },
+   "user": {
+       "followers_count": 1892,
+       "statuses_count": 56218,
+       "name": "TheOriginals 2x21",
+       "friends_count": 750,
+       "description": "#TheOriginals #Klaus #Elijah #Klayley #Klamille  #Haylijah  #TVD #SPN  #SavingHope",
+       "listed_count": 10,
+       "location": "Brasil :D",
+       "screen_name": "DGilliesFansBR"
+   },
+   "where": {
+       "coordinates": null
+   },
+   "when": {
+       "created_at_timestamp": 1429819569,
+       "created_at_str": "Thu Apr 23 20:06:09 +0000 2015"
+   },
+   "what": {
+       "lang": "en",
+       "text": "RT @DblOSevenDancer: Take him in guys.... #TVDChicago http://t.co/1egkSKBg56",
+       "entities": {
+           "symbols": [
+           ],
+           "user_mentions": [
+               {
+                   "id": 362703245,
+                   "indices": [
+                       3,
+                       19
+                   ],
+                   "id_str": "362703245",
+                   "screen_name": "DblOSevenDancer",
+                   "name": "Alithea Jean Mi$$ AJ"
+               }
+           ],
+           "hashtags": [
+               {
+                   "indices": [
+                       42,
+                       53
+                   ],
+                   "text": "TVDChicago"
+               }
+           ],
+           "urls": [
+           ],
+           "media": [
+               {
+                   "source_user_id": 362703245,
+                   "source_status_id_str": "589934694113923072",
+                   "expanded_url": "http://twitter.com/DblOSevenDancer/status/589934694113923072/photo/1",
+                   "display_url": "pic.twitter.com/1egkSKBg56",
+                   "url": "http://t.co/1egkSKBg56",
+                   "media_url_https": "https://pbs.twimg.com/media/CC_ed_XWEAA77Mi.jpg",
+                   "source_user_id_str": "362703245",
+                   "source_status_id": 589934694113923100,
+                   "id_str": "589934683015745536",
+                   "sizes": {
+                       "small": {
+                           "h": 604,
+                           "resize": "fit",
+                           "w": 340
+                       },
+                       "large": {
+                           "h": 1024,
+                           "resize": "fit",
+                           "w": 576
+                       },
+                       "medium": {
+                           "h": 1024,
+                           "resize": "fit",
+                           "w": 576
+                       },
+                       "thumb": {
+                           "h": 150,
+                           "resize": "crop",
+                           "w": 150
+                       }
+                   },
+                   "indices": [
+                       54,
+                       76
+                   ],
+                   "type": "photo",
+                   "id": 589934683015745500,
+                   "media_url": "http://pbs.twimg.com/media/CC_ed_XWEAA77Mi.jpg"
+               }
+           ]
+       }
+   }
+}

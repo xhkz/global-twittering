@@ -24,6 +24,19 @@
     },
     "c2e2": {
       "map": "function(doc) { if (doc.what.text.search('C2E2') != -1) { emit(doc.id, doc.sentiment); } }"
+    },
+    "language": {
+      "map": "function(doc) { if (doc.what.lang) {emit(doc.what.lang, 1); }}",
+      "reduce": "_sum"
+    },
+    "jobs": {
+      "map": " function(doc) { if (doc.what.entities.hashtags.length > 0 && doc.where.coordinates) { var pattern = /job/i; for(i in doc.what.entities.hashtags){ if(doc.what.entities.hashtags[i].text.match(pattern)) { emit(doc.when.created_at_timestamp, {geo: doc.where.coordinates, text: doc.what.text, hashtags: doc.what.entities.hashtags }); break; }}}}"
+    },
+    "bulls": {
+      "map": "function(doc) { if (doc.what.text.search(/chicagobulls/i) != -1) { emit(doc.id, doc); } }"
+    },
+    "chicagoBulls": {
+      "map": "function(doc) { if (doc.what.text.search(/chicagobulls/i) != -1) { emit(doc.when.created_at_timestamp, {senti: doc.sentiment.sentiment, time: doc.when.created_at_str}); } }"
     }
   }
 }
