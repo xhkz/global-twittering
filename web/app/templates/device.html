@@ -6,7 +6,7 @@
 
         function drawStuff() {
             var jsonData = $.ajax({
-                url: "{{ url_for('pie_data') }}",
+                url: "{{ url_for('device_data') }}",
                 dataType: "json",
                 async: false
             }).responseText;
