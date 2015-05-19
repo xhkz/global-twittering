@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+"""
+Author: Team 8
+City: Chicago
+Subject: COMP90024
+"""
 __requires__ = 'boto==2.34.0'
 import argparse
 import time
@@ -6,8 +11,6 @@ import time
 from boto.ec2.connection import EC2Connection
 from boto.ec2.regioninfo import RegionInfo
 
-# Team 8
-# TODO change and move to config file
 EC2_ACCESS_KEY = '38aa6ac0953443f5831398a4cc8757a0'
 EC2_SECRET_KEY = 'c1385348cf7e4b01b82601c2c2f7d61f'
 DEFAULT_IMAGE_ID = 'ami-000022b3'
@@ -90,5 +93,3 @@ if __name__ == '__main__':
             terminate_instance(ins_id)
     else:
         parser.print_help()
-
-
