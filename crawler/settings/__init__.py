@@ -1,7 +1,11 @@
-__author__ = 'Xin Huang'
+"""
+Author: Team 8
+City: Chicago
+Subject: COMP90024
+"""
 
 
-class Keys():
+class Keys:
     """
         CONSUMER_KEY
         CONSUMER_SEC

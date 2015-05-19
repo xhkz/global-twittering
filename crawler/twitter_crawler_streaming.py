@@ -1,5 +1,9 @@
 #!/usr/bin/env python
-__author__ = 'nikki'
+"""
+Author: Team 8
+City: Chicago
+Subject: COMP90024
+"""
 import sys
 
 import couchdb

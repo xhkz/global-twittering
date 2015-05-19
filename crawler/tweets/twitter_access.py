@@ -1,4 +1,8 @@
-__author__ = 'nikki'
+"""
+Author: Team 8
+City: Chicago
+Subject: COMP90024
+"""
 import time
 from datetime import datetime
 

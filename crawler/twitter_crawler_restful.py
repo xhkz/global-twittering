@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+"""
+Author: Team 8
+City: Chicago
+Subject: COMP90024
+"""
 import argparse
 import time
 from datetime import datetime
@@ -7,7 +12,6 @@ import pycouchdb
 import tweepy
 
 from settings import app_auth, couchdb_uri
-
 
 db_name = 'twitter_rest'
 db_org_name = 'twitter_org'
@@ -130,10 +134,3 @@ if __name__ == '__main__':
             if no_save >= 20:
                 max_id = get_recent_one()[0].id
                 no_save = 0
-
-
-
-
-
-
-
